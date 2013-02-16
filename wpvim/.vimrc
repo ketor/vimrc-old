@@ -31,7 +31,7 @@ call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
 "}}}
-  
+
 "Basic options ------------------------------------------{{{
 
 "use system clipboard
@@ -55,7 +55,9 @@ endif
 colorscheme jellybeans
 
 set encoding=utf-8 "encoding to utf-8
-set fileencodings=utf-8 "set encoding when opening files to utf-8
+set fileencodings=utf-8,gbk "set encoding when opening files to utf-8
+set langmenu=en_US.UTF-8
+language message en_US.UTF-8
 set ch=1		" Make command line two lines high
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11,DejaVu\ Sans\ Mono:h12,Menlo\ Regular\ for\ Powerline:h12,Monaco:h13 "use DejaVu Sans Mono for english on win/liunux, Monaco for mac
 set guifontwide=Yahei_Mono:h11,SimHei:h11,Monaco:h12 "use SimHei for Chinese, Monaco for mac
@@ -126,10 +128,11 @@ augroup END
 
 "disable tabs
 set nowrap                     	" wrap long lines
-set autoindent                 	" indent at the same level of the previous line
-set expandtab
-set shiftwidth=4
-set softtabstop=4
+set autoindent                 	" 自动缩进，即每行的缩进值与上一行相等；使用 noautoindent 取消设置
+set tabstop=8     "制表符的宽度，参考ceph
+set shiftwidth=2  "缩进的空格数，参考ceph
+"set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使用 noexpandtab 取消设置
+set softtabstop=8 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
 set textwidth=80
 set formatoptions=qrn1
 "set colorcolumn=+1
@@ -189,123 +192,7 @@ nnoremap tt :tabnew<cr>
 " }}}
 
 " Various filetype-specific stuff ----------------------------------------- {{{
-" CSS and LessCSS {{{
 
-augroup ft_css
-    au!
-
-    au BufNewFile,BufRead *.less setlocal filetype=less
-
-    au Filetype less,css setlocal foldmethod=indent
-    au Filetype less,css setlocal foldmarker={,}
-    au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
-    au Filetype less,css setlocal iskeyword+=-
-
-    " Use <leader>S to sort properties.  Turns this:
-    "
-    "     p {
-    "         width: 200px;
-    "         height: 100px;
-    "         background: red;
-    "
-    "         ...
-    "     }
-    "
-    " into this:
-
-    "     p {
-    "         background: red;
-    "         height: 100px;
-    "         width: 200px;
-    "
-    "         ...
-    "     }
-    au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
-    " positioned inside of them AND the following code doesn't get unfolded.
-    au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
-augroup END
-" }}}
-" HTML and HTMLDjango {{{
-
-augroup ft_html
-    au!
-
-    au BufNewFile,BufRead *.html setlocal filetype=htmldjango
-    au FileType html,jinja,htmldjango setlocal foldmethod=manual
-
-    " Use <localleader>f to fold the current tag.
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
-
-    " Use Shift-Return to turn this:
-    "     <tag>|</tag>
-    "
-    " into this:
-    "     <tag>
-    "         |
-    "     </tag>
-    au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
-
-    " Smarter pasting
-    au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
-    au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
-    au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
-    au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
-
-    " Indent tag
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
-
-    " Django tags
-    au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
-
-    " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
-augroup END
-
-" }}}
-" Javascript {{{
-
-augroup ft_javascript
-    au!
-
-    au FileType javascript setlocal foldmethod=marker
-    au FileType javascript setlocal foldmarker={,}
-
-    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
-    " positioned inside of them AND the following code doesn't get unfolded.
-    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
-augroup END
-
-" }}}
-" Markdown {{{
-
-augroup ft_markdown
-    au!
-
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-
-    " Use <localleader>1/2/3 to add headings.
-    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
-augroup END
-
-" }}}
-" Nginx {{{
-
-augroup ft_nginx
-    au!
-
-    au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
-    au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
-    au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
-    au BufRead,BufNewFile vhost.nginx                            set ft=nginx
-
-    au FileType nginx setlocal foldmethod=marker foldmarker={,}
-augroup END
-
-" }}}
 " Python {{{
 
 augroup ft_python
@@ -341,8 +228,8 @@ augroup END
 " Convenience mappings ---------------------------------------------------- {{{
 
 " Change case
-nnoremap <C-u> gUiw
-inoremap <C-u> <esc>gUiwea
+"nnoremap <C-u> gUiw
+"inoremap <C-u> <esc>gUiwea
 
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
@@ -564,4 +451,3 @@ call InitializeDirectories()
 
 "My Ctags command
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
-
