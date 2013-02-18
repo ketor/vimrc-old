@@ -127,8 +127,8 @@ augroup END
 " }}}
 
 "disable tabs
-"set nowrap                     	" wrap long lines
-set autoindent                 	" 自动缩进，即每行的缩进值与上一行相等；使用 noautoindent 取消设置
+set nowrap        " wrap long lines
+set autoindent    " 自动缩进，即每行的缩进值与上一行相等；使用 noautoindent 取消设置
 set tabstop=8     "制表符的宽度，参考ceph
 set shiftwidth=2  "缩进的空格数，参考ceph
 set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使用 noexpandtab 取消设置
@@ -392,22 +392,22 @@ nnoremap zO zCzO
 " Use ,z to "focus" the current fold.
 nnoremap <leader>z zMzvzz
 
-function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-set foldtext=MyFoldText()
+"function! MyFoldText() " {{{
+"    let line = getline(v:foldstart)
+"
+"    let nucolwidth = &fdc + &number * &numberwidth
+"    let windowwidth = winwidth(0) - nucolwidth - 3
+"    let foldedlinecount = v:foldend - v:foldstart
+"
+"    " expand tabs into spaces
+"    let onetab = strpart('          ', 0, &tabstop)
+"    let line = substitute(line, '\t', onetab, 'g')
+"
+"    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+"    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+"    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+"endfunction " }}}
+"set foldtext=MyFoldText()
 
 " }}}
 
