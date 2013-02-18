@@ -127,14 +127,14 @@ augroup END
 " }}}
 
 "disable tabs
-set nowrap                     	" wrap long lines
+"set nowrap                     	" wrap long lines
 set autoindent                 	" 自动缩进，即每行的缩进值与上一行相等；使用 noautoindent 取消设置
 set tabstop=8     "制表符的宽度，参考ceph
 set shiftwidth=2  "缩进的空格数，参考ceph
-"set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使用 noexpandtab 取消设置
-set softtabstop=8 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
-set textwidth=80
-set formatoptions=qrn1
+set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使用 noexpandtab 取消设置
+"set softtabstop=8 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
+set textwidth=78
+"set formatoptions=qrn1
 "set colorcolumn=+1
 
 "use sane regx"
@@ -366,6 +366,13 @@ let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 " Folding ----------------------------------------------------------------- {{{
 
 set foldlevelstart=0
+set foldmethod=indent       "代码折叠 共有6中方式如下
+"1. manual //手工定义折叠
+"2. indent //用缩进表示折叠
+"3. expr　 //用表达式来定义折叠
+"4. syntax //用语法高亮来定义折叠
+"5. diff   //对没有更改的文本进行折叠
+"6. marker //用标志折叠
 
 " Make the current location sane.
 nnoremap <c-cr> zvzt
@@ -451,3 +458,7 @@ call InitializeDirectories()
 
 "My Ctags command
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+command Hex %!xxd
+command Asc %!xxd -r
+
+
