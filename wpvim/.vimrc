@@ -132,6 +132,7 @@ set autoindent                 	" 自动缩进，即每行的缩进值与上一�
 set tabstop=8     "制表符的宽度，参考ceph
 set shiftwidth=2  "缩进的空格数，参考ceph
 set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使用 noexpandtab 取消设置
+autocmd FileType make setlocal noexpandtab "Makefile中允许使用tab
 "set softtabstop=8 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
 set textwidth=78
 "set formatoptions=qrn1
