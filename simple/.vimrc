@@ -196,3 +196,4 @@ nnoremap N Nzzzv "保持搜索结果在屏幕中央位置
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
 command Hex %!xxd
 command Asc %!xxd -r
+
