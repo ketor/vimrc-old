@@ -366,7 +366,7 @@ let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 
 " Folding ----------------------------------------------------------------- {{{
 
-set foldlevelstart=0
+"set foldlevelstart=0
 set foldmethod=indent       "代码折叠 共有6中方式如下
 "1. manual //手工定义折叠
 "2. indent //用缩进表示折叠
