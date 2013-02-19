@@ -98,22 +98,23 @@ nnoremap N Nzzzv "保持搜索结果在屏幕中央位置
     nnoremap <Space> zah "空格键折叠，h是为了解决Space会导致焦点右移一位的问题
     vnoremap <Space> zah "空格键折叠，h是为了解决Space会导致焦点右移一位的问题
     "下面这段是自定义折叠后显示的代码信息
-    function! MyFoldText() " {{{
-        let line = getline(v:foldstart)
-        
-        let nucolwidth = &fdc + &number * &numberwidth
-        let windowwidth = winwidth(0) - nucolwidth - 3
-        let foldedlinecount = v:foldend - v:foldstart
-        
-        " expand tabs into spaces
-        let onetab = strpart('          ', 0, &tabstop)
-        let line = substitute(line, '\t', onetab, 'g')
-        
-        let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-        let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-        return '+' . foldedlinecount . line . '…' . repeat(" ",fillcharcount)
-    endfunction
-    set foldtext=MyFoldText()
+    "填充的字符与taglist窗口的边缘有重合，暂时屏蔽
+"    function! MyFoldText() " {{{
+"        let line = getline(v:foldstart)
+"        
+"        let nucolwidth = &fdc + &number * &numberwidth
+"        let windowwidth = winwidth(0) - nucolwidth - 3
+"        let foldedlinecount = v:foldend - v:foldstart
+"        
+"        " expand tabs into spaces
+"        let onetab = strpart('          ', 0, &tabstop)
+"        let line = substitute(line, '\t', onetab, 'g')
+"        
+"        let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+"        let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+"        return '+' . foldedlinecount . line . '…' . repeat(" ",fillcharcount)
+"    endfunction
+"    set foldtext=MyFoldText()
 
 "设置菜单和帮助的语言，默认改为英语
     set fileencodings=utf-8,gbk "使用utf-8或gbk打开文件
@@ -130,12 +131,11 @@ nnoremap N Nzzzv "保持搜索结果在屏幕中央位置
     set t_Co=256
     let g:Powerline_symbols = 'fancy'
 
-"taglist配置
-    let Tlist_Show_One_File = 1            "只显示当前文件的taglist，默认是显示多个
-    let Tlist_Exit_OnlyWindow = 1          "如果taglist是最后一个窗口，则退出vim
-    let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist
-    let Tlist_GainFocus_On_ToggleOpen = 1  "打开taglist时，光标保留在taglist窗口
-    nmap <silent> <F4> :TlistToggle <CR>   "绑定F4为快捷键
+"Tagbar配置
+" http://adamyoung.net/Exuberant-Ctags-OS-X
+" http://www.vim.org/scripts/script.php?script_id=273
+let g:tagbar_width=26
+noremap <silent> <F4> :TagbarToggle<CR>
 
 "jellybeans配色方案配置
     colorscheme jellybeans
