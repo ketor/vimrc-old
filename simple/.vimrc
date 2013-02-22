@@ -8,7 +8,7 @@ set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使�
 autocmd FileType make setlocal noexpandtab "Makefile中允许使用tab
 set tabstop=8               "制表符的宽度，参考ceph
 "set shiftwidth=2            "缩进的空格数，参考ceph 这个配置会影响折叠的展开，所以暂时屏蔽
-set softtabstop=8 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
+set softtabstop=4 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
 set number                  "显示行号
 set autoread                "文件在Vim之外修改过，自动重新读入
 set showbreak=↪             "显示换行符
@@ -70,7 +70,7 @@ set hlsearch					" 高亮搜索结果
 set magic                       " 根据vim说明默认开启此参数
 set ignorecase					" 忽略大小写
 set smartcase					" case sensitive when uc present
-nmap <silent> <leader>/ :nohlsearch<CR> "清空搜索结果高亮显示
+nnoremap <leader>/ :nohlsearch<CR> "清空搜索结果高亮显示
 "nnoremap n nzzzv "保持搜索结果在屏幕中央位置
 "nnoremap N Nzzzv "保持搜索结果在屏幕中央位置
 
