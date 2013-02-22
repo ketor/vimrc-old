@@ -80,12 +80,10 @@ nnoremap <leader>/ :nohlsearch<CR> "清空搜索结果高亮显示
     noremap <C-k> <C-w>k
     noremap <C-l> <C-w>l
 
-"在标签页和buffer之间切换
+"在标签页之间切换
     nnoremap tn :tabnext<cr>
     nnoremap tp :tabprev<cr>
     nnoremap tt :tabnew<cr>
-    nnoremap <leader>bn :bnext<cr>
-    nnoremap <leader>bp :bprev<cr>
 
 "代码折叠相关配置
     set foldmethod=indent       "代码折叠 共有6中方式如下
