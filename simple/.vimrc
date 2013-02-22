@@ -71,8 +71,8 @@ set magic                       " 根据vim说明默认开启此参数
 set ignorecase					" 忽略大小写
 set smartcase					" case sensitive when uc present
 nmap <silent> <leader>/ :nohlsearch<CR> "清空搜索结果高亮显示
-nnoremap n nzzzv "保持搜索结果在屏幕中央位置
-nnoremap N Nzzzv "保持搜索结果在屏幕中央位置
+"nnoremap n nzzzv "保持搜索结果在屏幕中央位置
+"nnoremap N Nzzzv "保持搜索结果在屏幕中央位置
 
 "在屏幕中各子窗口之间切换
     noremap <C-h> <C-w>h
