@@ -61,6 +61,8 @@ augroup END
 
 "设置mapleader前缀
     let mapleader = ','
+"设置快捷关闭鼠标的定义
+    map <leader>m :set mouse=<CR>
 
 "搜索相关的设置
 set gdefault "all matches in a line a subsituted instead of one.
@@ -93,8 +95,8 @@ nnoremap <leader>/ :nohlsearch<CR> "清空搜索结果高亮显示
         "4. syntax 用语法高亮来定义折叠
         "5. diff   对没有更改的文本进行折叠
         "6. marker 用标志折叠
-    nnoremap <Space> zah "空格键折叠，h是为了解决Space会导致焦点右移一位的问题
-    vnoremap <Space> zah "空格键折叠，h是为了解决Space会导致焦点右移一位的问题
+"    nnoremap <Space> zah "空格键折叠，h是为了解决Space会导致焦点右移一位的问题
+"    vnoremap <Space> zah "空格键折叠，h是为了解决Space会导致焦点右移一位的问题
     "下面这段是自定义折叠后显示的代码信息
     "填充的字符与taglist窗口的边缘有重合，暂时屏蔽
 "    function! MyFoldText() " {{{
