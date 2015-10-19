@@ -65,6 +65,9 @@ augroup END
 "设置mapleader前缀
     let mapleader = ','
 
+"快速退出vim
+    nnoremap <leader>q :qa!<CR> "清空搜索结果高亮显示
+
 "搜索相关的设置
     set gdefault   "all matches in a line a subsituted instead of one.
     set showmatch  " show matching brackets/parenthesis
