@@ -134,35 +134,8 @@ augroup END
     let g:airline_symbols.readonly = '⭤'
     let g:airline_symbols.linenr = '⭡'
 
-" Syntastic ------------------------------
-    " show list of errors and warnings on the current file
-    nmap <leader>e :Errors<CR>
-    " check also when just opened the file
-    let g:syntastic_check_on_open = 1
-    " don't put icons on the sign column (it hides the vcs status icons of signify)
-    let g:syntastic_enable_signs = 0
-    " custom icons (enable them if you use a patched font, and enable the previous
-    " setting)
-    "let g:syntastic_error_symbol = '✗'
-    "let g:syntastic_warning_symbol = '⚠'
-    "let g:syntastic_style_error_symbol = '✗'
-    "let g:syntastic_style_warning_symbol = '⚠'
-    
-    " Python-mode ------------------------------
-    
-    " don't use linter, we use syntastic for that
-    let g:pymode_lint_on_write = 0
-    let g:pymode_lint_signs = 0
-    " don't fold python code on open
-    let g:pymode_folding = 0
-    " don't load rope by default. Change to 1 to use rope
-    let g:pymode_rope = 0
-    " open definitions on same window, and custom mappings for definitions and
-    " occurrences
-    let g:pymode_rope_goto_definition_bind = ',d'
-    let g:pymode_rope_goto_definition_cmd = 'e'
-    nmap ,D :tab split<CR>:PymodePython rope.goto()<CR>
-    nmap ,o :RopeFindOccurrences<CR>
+"Unite 聚合搜索
+    noremap <C-p> :Unite
 
 "Tagbar配置
     let g:tagbar_width=26
@@ -275,40 +248,6 @@ augroup END
         \ 'ctagsbin'  : 'gotags',
         \ 'ctagsargs' : '-sort -silent'
     \ }
-
-" CtrlP ------------------------------
-    " file finder mapping
-    let g:ctrlp_map = ',e'
-    " tags (symbols) in current file finder mapping
-    nmap ,g :CtrlPBufTag<CR>
-    " tags (symbols) in all files finder mapping
-    nmap ,G :CtrlPBufTagAll<CR>
-    " general code finder in all files mapping
-    nmap ,f :CtrlPLine<CR>
-    " recent files finder mapping
-    nmap ,m :CtrlPMRUFiles<CR>
-    " commands finder mapping
-    nmap ,c :CtrlPCmdPalette<CR>
-    " to be able to call CtrlP with default search text
-    function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-        execute ':CtrlP' . a:ctrlp_command_end
-        call feedkeys(a:search_text)
-    endfunction
-    " same as previous mappings, but calling with current word as default text
-    nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-    nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-    nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-    nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-    nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-    nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-    nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-    " don't change working directory
-    let g:ctrlp_working_path_mode = 0
-    " ignore these files and folders on file finder
-    let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-      \ 'file': '\.pyc$\|\.pyo$',
-      \ }
 
 "自定义快捷扫描ctags命令
 "command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
