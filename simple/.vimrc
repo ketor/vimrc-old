@@ -253,8 +253,8 @@ augroup END
     \ }
 
 "自定义快捷扫描ctags命令
-"command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
-command Ctags !ctags -R .
+command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+"command Ctags !ctags -R .
 command Hex %!xxd
 command Asc %!xxd -r
 
