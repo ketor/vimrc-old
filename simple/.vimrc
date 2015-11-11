@@ -158,7 +158,8 @@ augroup END
       let g:unite_source_grep_recursive_opt=''
     elseif executable('ack')
       let g:unite_source_grep_command='ack'
-      let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
+      "let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
+      let g:unite_source_grep_default_opts='-s -H --nocolor --nogroup --column'
       let g:unite_source_grep_recursive_opt=''
     endif
     
