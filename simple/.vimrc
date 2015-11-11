@@ -174,7 +174,7 @@ augroup END
     nmap <space> [unite]
     nnoremap [unite] <nop>
     
-    nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_mru file_rec buffer bookmark<cr><c-u>
+    nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_mru file_rec/async buffer bookmark<cr><c-u>
     nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async<cr><c-u>
     nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
     nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
