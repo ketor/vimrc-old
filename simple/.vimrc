@@ -6,10 +6,9 @@ autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType make setlocal noexpandtab
 
-set clipboard+=unnamed "use System clipboard on Mac
-"set autoindent              "设置自动缩进
+"set clipboard+=unnamed "use System clipboard on Mac
+set autoindent              "设置自动缩进
 set bs=2                    "在insert模式下用退格键删除
-set mouse=a
 "set expandtab     "是否在缩进和遇到 Tab 键时使用空格替代；使用 noexpandtab 取消设置
 set tabstop=8               "制表符的宽度，参考ceph
 "set softtabstop=4 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
@@ -50,6 +49,12 @@ set fillchars=diff:⣿
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*" 
 
+"使用F2开关粘贴模式
+set pastetoggle=<F2>
+
+"使用F6开关list字符
+noremap <F6> :set list!<CR>
+
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
@@ -61,6 +66,24 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
+
+"deprecated by vim-togglemouse plugin, map <F12>
+"使用F5开关鼠标控制
+"function! ToggleMouse()
+"    " check if mouse is enabled
+"    if &mouse == 'a'
+"        " disable mouse
+"        set mouse=
+"	echomsg 'NO MOUSE CONTROL'
+"    else
+"        " enable mouse everywhere
+"        set mouse=a
+"	echomsg 'ALL MOUSE CONTROL OPENED!!!!'
+"    endif
+"endfunc
+"
+"set mouse=
+"noremap <silent> <F5> :call ToggleMouse()<CR>
 
 "设置mapleader前缀
     let mapleader = ','
@@ -296,6 +319,25 @@ augroup END
         \ 'ctagsargs' : '-sort -silent'
     \ }
 
+"neosnippet
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    
+    " SuperTab like snippets behavior.
+    "imap <expr><TAB>
+    " \ pumvisible() ? "\<C-n>" :
+    " \ neosnippet#expandable_or_jumpable() ?
+    " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
+
 "自定义快捷扫描ctags命令
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
 "command Ctags !ctags -R .
@@ -303,4 +345,6 @@ command Hex %!xxd
 command Asc %!xxd -r
 
 command Gotags !gotags -R . >tags
+
+command Cswp !find . -name "*.swp" -exec rm -f {} \;
 
