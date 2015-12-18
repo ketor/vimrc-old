@@ -13,6 +13,7 @@ set bs=2                    "在insert模式下用退格键删除
 set tabstop=8               "制表符的宽度，参考ceph
 "set softtabstop=4 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
 set number                  "显示行号
+let line_number = 1
 set autoread                "文件在Vim之外修改过，自动重新读入
 set showbreak=↪             "显示换行符
 set backspace=indent,eol,start "允许任意地方使用backspace键
@@ -67,23 +68,24 @@ augroup line_return
         \ endif
 augroup END
 
-"deprecated by vim-togglemouse plugin, map <F12>
-"使用F5开关鼠标控制
-"function! ToggleMouse()
-"    " check if mouse is enabled
-"    if &mouse == 'a'
-"        " disable mouse
-"        set mouse=
-"	echomsg 'NO MOUSE CONTROL'
-"    else
-"        " enable mouse everywhere
-"        set mouse=a
-"	echomsg 'ALL MOUSE CONTROL OPENED!!!!'
-"    endif
-"endfunc
-"
-"set mouse=
-"noremap <silent> <F5> :call ToggleMouse()<CR>
+"使用F5开关行号
+fun! ToggleLineNumber()
+    if !exists("s:old_linenumber")
+        let s:old_linenumber = "1"
+    endif
+
+    if s:old_linenumber == "0"
+        set number
+        let s:old_linenumber = "1"
+        echo "set number"
+    else
+        set nonumber
+        let s:old_linenumber = "0"
+        echo "set nonumber"
+    endif
+endfunction
+
+noremap <silent> <F5> :call ToggleLineNumber()<CR>
 
 "设置mapleader前缀
     let mapleader = ','
