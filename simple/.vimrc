@@ -68,23 +68,32 @@ augroup line_return
 augroup END
 
 "使用F5开关行号
-fun! ToggleLineNumber()
-    if !exists("s:old_linenumber")
-        let s:old_linenumber = "1"
-    endif
+"fun! ToggleLineNumber()
+"    if !exists("s:old_linenumber")
+"        let s:old_linenumber = "1"
+"    endif
+"
+"    if s:old_linenumber == "0"
+"        set number
+"        let s:old_linenumber = "1"
+"        echo "set number"
+"    else
+"        set nonumber
+"        let s:old_linenumber = "0"
+"        echo "set nonumber"
+"    endif
+"endfunction
+"
+"noremap <silent> <F5> :call ToggleLineNumber()<CR>
+nnoremap <F5> :ToggleNumber<CR>
 
-    if s:old_linenumber == "0"
-        set number
-        let s:old_linenumber = "1"
-        echo "set number"
-    else
-        set nonumber
-        let s:old_linenumber = "0"
-        echo "set nonumber"
-    endif
+"使用F7更新Taghighlight
+fun! UpdateCtagsAndFileTypes()
+    !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+    UpdateTypesFile
 endfunction
 
-noremap <silent> <F5> :call ToggleLineNumber()<CR>
+noremap <silent> <F7> :call UpdateCtagsAndFileTypes()<CR>
 
 "设置mapleader前缀
     let mapleader = ','
@@ -339,8 +348,56 @@ noremap <silent> <F5> :call ToggleLineNumber()<CR>
       set conceallevel=2 concealcursor=niv
     endif
 
+"copy-cut-paste
+    let g:copy_cut_paste_no_mappings = 1
+    
+    " Use your keymap
+    nmap QC <Plug>CCP_CopyLine
+    vmap QC <Plug>CCP_CopyText
+    
+    nmap QX <Plug>CCP_CutLine
+    vmap QX <Plug>CCP_CutText
+    
+    nmap QV <Plug>CCP_PasteText
+
+"vim-signature
+let g:SignatureMap = {
+        \ 'Leader'             :  "m",
+        \ 'PlaceNextMark'      :  "m,",
+        \ 'ToggleMarkAtLine'   :  "m.",
+        \ 'PurgeMarksAtLine'   :  "m-",
+        \ 'DeleteMark'         :  "dm",
+        \ 'PurgeMarks'         :  "mda",
+        \ 'PurgeMarkers'       :  "m<BS>",
+        \ 'GotoNextLineAlpha'  :  "']",
+        \ 'GotoPrevLineAlpha'  :  "'[",
+        \ 'GotoNextSpotAlpha'  :  "`]",
+        \ 'GotoPrevSpotAlpha'  :  "`[",
+        \ 'GotoNextLineByPos'  :  "]'",
+        \ 'GotoPrevLineByPos'  :  "['",
+        \ 'GotoNextSpotByPos'  :  "mn",
+        \ 'GotoPrevSpotByPos'  :  "mp",
+        \ 'GotoNextMarker'     :  "[+",
+        \ 'GotoPrevMarker'     :  "[-",
+        \ 'GotoNextMarkerAny'  :  "]=",
+        \ 'GotoPrevMarkerAny'  :  "[=",
+        \ 'ListLocalMarks'     :  "ms",
+        \ 'ListLocalMarkers'   :  "m?"
+        \ }
+
+"easy motion
+    let g:EasyMotion_smartcase = 1
+    "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+    map <Leader><leader>h <Plug>(easymotion-linebackward)
+    map <Leader><Leader>j <Plug>(easymotion-j)
+    map <Leader><Leader>k <Plug>(easymotion-k)
+    map <Leader><leader>l <Plug>(easymotion-lineforward)
+    " 重复上一次操作, 类似repeat插件, 很强大
+    map <Leader><leader>, <Plug>(easymotion-repeat)
+
 "自定义快捷扫描ctags命令
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+command Tags UpdateTypesFile
 "command Ctags !ctags -R .
 command Hex %!xxd
 command Asc %!xxd -r
