@@ -13,7 +13,6 @@ set bs=2                    "在insert模式下用退格键删除
 set tabstop=8               "制表符的宽度，参考ceph
 "set softtabstop=4 "软制表符宽度，设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值，但实际插入的字符仍受 tabstop 和 expandtab 控制
 set number                  "显示行号
-let line_number = 1
 set autoread                "文件在Vim之外修改过，自动重新读入
 set showbreak=↪             "显示换行符
 set backspace=indent,eol,start "允许任意地方使用backspace键
