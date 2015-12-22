@@ -386,18 +386,6 @@ noremap <silent> <F7> :call UpdateCtagsAndFileTypes()<CR>
       set conceallevel=2 concealcursor=niv
     endif
 
-"copy-cut-paste
-    let g:copy_cut_paste_no_mappings = 1
-    
-    " Use your keymap
-    nmap QC <Plug>CCP_CopyLine
-    vmap QC <Plug>CCP_CopyText
-    
-    nmap QX <Plug>CCP_CutLine
-    vmap QX <Plug>CCP_CutText
-    
-    nmap QV <Plug>CCP_PasteText
-
 "vim-signature
 let g:SignatureMap = {
         \ 'Leader'             :  "m",
