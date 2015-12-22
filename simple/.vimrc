@@ -180,7 +180,7 @@ noremap <silent> <F7> :call UpdateCtagsAndFileTypes()<CR>
     call unite#filters#sorter_default#use(['sorter_rank'])
     call unite#set_profile('files', 'context.smartcase', 1)
     
-    let g:unite_data_directory='~/.vim/.cache/unite'
+    let g:unite_data_directory='~/.cache/unite'
     let g:unite_enable_start_insert=1
     let g:unite_source_history_yank_enable=1
     let g:unite_source_rec_max_cache_files=5000
@@ -369,9 +369,9 @@ noremap <silent> <F7> :call UpdateCtagsAndFileTypes()<CR>
 
 "neosnippet
     " Plugin key-mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    imap <leader>k     <Plug>(neosnippet_expand_or_jump)
+    smap <Leader>k     <Plug>(neosnippet_expand_or_jump)
+    xmap <Leader>k     <Plug>(neosnippet_expand_target)
     
     " SuperTab like snippets behavior.
     "imap <expr><TAB>
@@ -433,9 +433,32 @@ let g:SignatureMap = {
     " 重复上一次操作, 类似repeat插件, 很强大
     map <Leader><leader>, <Plug>(easymotion-repeat)
 
+"undotree
+    function! s:get_undotree_dir() "{{{
+      let s:undotree_dir=
+            \ substitute(substitute(fnamemodify(
+            \ get(s:, 'undotree_dir',
+            \  ($XDG_CACHE_HOME != '' ?
+            \   $XDG_CACHE_HOME . '/undotree' : expand('~/.cache/undotree'))),
+            \  ':p'), '\\', '/', 'g'), '/$', '', '')
+    
+      if !isdirectory(s:undotree_dir)
+        call mkdir(s:undotree_dir, 'p')
+      endif
+    
+      return s:undotree_dir
+    endfunction"}}}
+
+    nnoremap <F8> :UndotreeToggle<cr>
+    if has("persistent_undo")
+        let s:undotree_dir = "~/.cache/undotree"
+	call s:get_undotree_dir()
+        let &undodir = s:undotree_dir
+        set undofile
+    endif
+
 "自定义快捷扫描ctags命令
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
-command Tags UpdateTypesFile
 "command Ctags !ctags -R .
 command Hex %!xxd
 command Asc %!xxd -r
