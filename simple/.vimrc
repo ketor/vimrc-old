@@ -89,11 +89,12 @@ nnoremap <F5> :ToggleNumber<CR>
 
 "使用F7更新Taghighlight
 fun! UpdateCtagsAndFileTypes()
-    !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+"    !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
     UpdateTypesFile
+    echo "UpdateTypesFile OK!"
 endfunction
 
-noremap <silent> <F7> :call UpdateCtagsAndFileTypes()<CR>
+noremap <F7> :call UpdateCtagsAndFileTypes()<CR>
 
 "设置mapleader前缀
     let mapleader = ','
@@ -444,6 +445,10 @@ let g:SignatureMap = {
         let &undodir = s:undotree_dir
         set undofile
     endif
+
+"tagbar-phpctags
+"    let g:tagbar_phpctags_bin='PATH_TO_phpctags'
+    let g:tagbar_phpctags_memory_limit = '512M'
 
 "自定义快捷扫描ctags命令
 command Ctags !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
