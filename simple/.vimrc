@@ -1,4 +1,5 @@
-syntax on                      "语法支持
+syntax on        "语法支持
+set nocompatible "vi兼容性，貌似vim会在检测到.vimrc时自动设置 
 
 " tab length exceptions on some file types
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -151,6 +152,10 @@ noremap <F7> :call UpdateCtagsAndFileTypes()<CR>
 
 "jellybeans配色方案配置
     colorscheme jellybeans
+
+"vim-colors-solarized
+"需要配合iTerm2的solarized配色才可用，默认禁用
+"    colorscheme solarized
 
 " Airline ------------------------------
     let g:airline_powerline_fonts = 1
@@ -441,10 +446,33 @@ let g:SignatureMap = {
     nnoremap <F8> :UndotreeToggle<cr>
     if has("persistent_undo")
         let s:undotree_dir = "~/.cache/undotree"
-	call s:get_undotree_dir()
+        call s:get_undotree_dir()
         let &undodir = s:undotree_dir
         set undofile
     endif
+
+"统一swapdir&backupdir
+    function! s:get_swap_dir() "{{{
+      let s:swap_dir=
+            \ substitute(substitute(fnamemodify(
+            \ get(s:, 'swap_dir',
+            \  ($XDG_CACHE_HOME != '' ?
+            \   $XDG_CACHE_HOME . '/swap_dir' : expand('~/.cache/swap_dir'))),
+            \  ':p'), '\\', '/', 'g'), '/$', '', '')
+    
+      if !isdirectory(s:swap_dir)
+        call mkdir(s:swap_dir, 'p')
+      endif
+    
+      return s:swap_dir
+    endfunction"}}}
+
+    let s:swap_dir = "~/.cache/swap_dir//"
+    call s:get_swap_dir()
+    "let &directory = s:swap_dir
+    "为了实现同名文件可以同时存在swapfile，先写死
+    set directory=~/.cache/swap_dir//
+    set backupdir=~/.cache/swap_dir//
 
 "tagbar-phpctags
 "    let g:tagbar_phpctags_bin='PATH_TO_phpctags'
