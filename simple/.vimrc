@@ -287,7 +287,7 @@ noremap <F7> :call UpdateCtagsAndFileTypes()<CR>
     let g:neocomplcache_same_filetype_lists._ = '_'
 
 "NerdTree配置
-    map <F3> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+    map <F3> :NERDTreeToggle<CR>
     map <leader>e :NERDTreeFind<CR>
     nmap <leader>nt :NERDTreeFind<CR>
 
