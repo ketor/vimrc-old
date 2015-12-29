@@ -148,7 +148,8 @@ noremap <F7> :call UpdateCtagsAndFileTypes()<CR>
     let $LANG='en_US.UTF-8'
 
 "pathogen是Vim用来管理插件的插件
-    call pathogen#infect()
+    source ~/vimrc/bundle/vim-pathogen/autoload/pathogen.vim
+    execute pathogen#infect('bundle/{}', '~/vimrc/bundle/{}')
 
 "jellybeans配色方案配置
     colorscheme jellybeans
